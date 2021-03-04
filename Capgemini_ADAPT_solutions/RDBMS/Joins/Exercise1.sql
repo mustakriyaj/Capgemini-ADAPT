@@ -1,0 +1,11 @@
+alter session set current_schema = busservice;
+SET heading OFF
+/*
+ * Enter your query below.
+ * Please append a semicolon ";" at the end of the query
+ */
+SELECT S.ACCOUNT_NO, B.CUST_FNAME, B.CUST_LNAME
+FROM BANK_FD_ACCOUNT S, BANK_CUSTOMER B
+WHERE B.CUST_ID = S.CUST_ID
+AND (INITIAL_AMT = (SELECT MAX(INITIAL_AMT) FROM BANK_FD_ACCOUNT GROUP BY B.CUST_FNAME)
+OR INITIAL_AMT = (SELECT MIN(INITIAL_AMT) FROM BANK_FD_ACCOUNT GROUP BY B.CUST_FNAME);
